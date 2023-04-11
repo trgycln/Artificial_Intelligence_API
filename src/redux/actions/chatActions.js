@@ -28,3 +28,27 @@ export const getAnswer = (prompt) => async (dispatch) => {
     payload: { prompt, answer: res.data.choices[0].message.content },
   });
 };
+
+
+export const getImage =(prompt)=> async (dispatch)=>{
+
+  const options = {
+    method: 'POST',
+    url: 'https://openai80.p.rapidapi.com/images/generations',
+    headers: {
+      'content-type': 'application/json',
+      'X-RapidAPI-Key': 'c70608ae13msh7a49a4214c82ff5p1e7104jsn23c35ba1147b',
+      'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+    },
+    data: `{"prompt":"${prompt}","n":2,"size":"1024x1024"}`
+  };
+
+  const res = await axios.request(options)
+  console.log(res);
+
+  dispatch({
+    type:ActionTypes.GET_IMAGE,
+    payload:{prompt, answer:res.data.data}
+  })
+
+}

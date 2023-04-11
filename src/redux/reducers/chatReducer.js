@@ -19,13 +19,14 @@ const chatReducer = (state=initialState, action)=>{
 			return {
 				...state,
 				chatAi:[...state.chatAi, action.payload],
-				isLoading:true
+				isLoading:false
 			}
 
 		case ActionTypes.GET_IMAGE:
 			return {
 				...state,
-				imageAi:[...state.imageAi, action.payload]
+				imageAi:[...state.imageAi, action.payload],
+				isLoading:false
 			}
 	
 		default:

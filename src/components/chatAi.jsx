@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnswer } from "../redux/actions/chatActions";
+import { getAnswer, getDataStart } from "../redux/actions/chatActions";
 
 const ChatAi = () => {
   const {chatState} = useSelector((state) => state);
@@ -13,7 +13,7 @@ const ChatAi = () => {
 
     // const formInput = document.getElementById("formInput");
     formInput.value = "";
-
+    dispatch(getDataStart())
     dispatch(getAnswer(value.prompt));
   };
 
@@ -21,14 +21,15 @@ const ChatAi = () => {
     <div className="bg-gray-400 w-full h-full flex flex-col rounded-[0_0_8px_8px]">
       <div className="flex flex-col min-h-[400px] flex-1 overflow-auto">
       {
-      !chatState.isLoading ? (<p>Loading...</p>):(
         chatState.chatAi.map((item, index)=>(
           <div key={index}>
           <div className="flex self-start mr-4"><span className="bg-green-400 p-2 rounded-[10px_10px_10px_0]">{item.prompt}</span></div>
           <div className="flex self-start ml-4"><span className="bg-orange-100 p-2 rounded-[10px_10px_0_10px]">{item.answer}</span></div>
           </div>
-        ))
-      )
+        ))     
+      }
+      {
+        chatState.isLoading && <p>Loading...</p>
       }
       </div>
       <form
